@@ -11,7 +11,7 @@ if (!savedToDos) {
       const newToDo = document.createElement("li");
       const doneBtn = document.createElement("button");
       doneBtn.innerText = "Done";
-      newToDo.innerText = toDoInput.value;
+      newToDo.innerText = task.taskName;
       newToDo.appendChild(doneBtn);
       toDoList.appendChild(newToDo);
     }
@@ -38,6 +38,14 @@ toDoList.addEventListener("click", function (e) {
   if (e.target.tagName === "LI") {
     e.target.style.textDecoration = "line-through";
   } else if (e.target.tagName === "BUTTON") {
+    let taskName = e.target.parentElement.textContent.replace("Done", "");
+    const savedToDos = JSON.parse(localStorage.getItem("savedToDos"));
+    for (const task of savedToDos) {
+      if (task.taskName == taskName) {
+        task.isDone = true;
+        break;
+      }
+    }
     e.target.parentElement.remove();
   }
 });
