@@ -3,7 +3,9 @@ const toDoInput = document.querySelector("#New_Todo");
 const toDoList = document.querySelector("#todo_list");
 
 const savedToDos = JSON.parse(localStorage.getItem("savedToDos"));
-if (savedToDos) {
+if (!savedToDos) {
+  localStorage.setItem("savedToDos", JSON.stringify([]));
+} else {
   savedToDos.forEach((task) => {
     if (!task.isDone) {
       const newToDo = document.createElement("li");
@@ -28,7 +30,7 @@ form.addEventListener("submit", function (e) {
 
   savedToDos.push({ taskName: toDoInput.value, isDone: false });
   console.log(savedToDos);
-  localStorage.setItem("savedToDos".JSON.stringify(savedToDos));
+  localStorage.setItem("savedToDos", JSON.stringify(savedToDos));
   toDoInput.value = "";
 });
 
